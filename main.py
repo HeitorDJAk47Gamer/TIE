@@ -1,10 +1,4 @@
-import os
-import json
-import random
-import datetime
-import asyncio
-import discord
-import requests
+import os, json, random, datetime, asyncio, discord, requests
 from io import BytesIO
 from discord.ext import commands, tasks
 from decouple import config
@@ -90,6 +84,10 @@ async def anime(ctx):
 	embed = discord.Embed(title="Imagem Aleatória de Anime", color=discord.Color.blue())
 	embed.set_image(url="attachment://anime.jpg")
 	await ctx.send(file=file, embed=embed)
+
+@tie.hybrid_command()
+async def ola(ctx):
+	await ctx.send(f'Olá caro {ctx.author.mention, como vc está?}')
 
 
 asyncio.run(main())
