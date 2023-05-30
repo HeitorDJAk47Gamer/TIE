@@ -1,4 +1,4 @@
 # TIE
  TIE SIB
 
-<img style="border-radius:50%; width: 30%; height: 30 %;" src="tie.png">
+<img style="width: 30%; height: 30 %; border-radius: 50%;" src="tie.png">
