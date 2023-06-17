@@ -18,6 +18,7 @@ async def on_ready():
 	print(f'Membros Globais: {len(tie.users)}')
 	print(f'Servidores Globais: {len(tie.guilds)}')
 	print(f'Ping {pong} ms')
+	Print(f'As Águias Imorríveis!')
 
 @tasks.loop(minutes=10)
 async def stats():
