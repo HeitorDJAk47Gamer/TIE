@@ -75,19 +75,8 @@ async def clear(ctx, quantidade=1000):
 	emoji = await ctx.send(embed=x)
 	await emoji.add_reaction('✅')
 
-
 @tie.hybrid_command()
-async def anime(ctx):
-	url = "https://www.thiswaifudoesnotexist.net/example-{}.jpg".format(random.randint(1, 100000))
-	response = requests.get(url)
-	file = discord.File(BytesIO(response.content), "anime.jpg")
-	embed = discord.Embed(title="Imagem Aleatória de Anime", color=discord.Color.blue())
-	embed.set_image(url="attachment://anime.jpg")
-	await ctx.send(file=file, embed=embed)
-
-@tie.hybrid_command()
-async def ola(ctx):
-	await ctx.send(f'Olá caro {ctx.author.mention, como vc está?}')
-
+async def sv(ctx):
+	await ctx.send(f'Servidor Das Águis Imorríveis!')
 
 asyncio.run(main())
