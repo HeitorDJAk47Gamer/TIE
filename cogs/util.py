@@ -1,5 +1,5 @@
-import discord, requests, asyncio, datetime, random, re
-from discord.ext import commands, tasks
+import disnake, requests, asyncio, datetime, random, re
+from disnake.ext import commands, tasks
 
 class Utilidade(commands.Cog):
 
@@ -14,13 +14,13 @@ class Utilidade(commands.Cog):
             return
 
         # Cria a mensagem de report
-        report_embed = discord.Embed(
+        report_embed = disnake.Embed(
             title="Nova mensagem de report",
             description=f"**Autor:** {ctx.author.mention}\n"
                         f"**Servidor:** {ctx.guild.name}\n"
                         f"**Canal:** {ctx.channel.mention}\n"
                         f"**Mensagem:**\n{report_msg}",
-            color=discord.Color.red()
+            color=disnake.Color.red()
         )
         report_embed.set_footer(text=f"ID do autor: {ctx.author.id}")
         report_embed.timestamp = datetime.datetime.utcnow()
@@ -39,9 +39,9 @@ class Utilidade(commands.Cog):
                 await channel.send(embed=report_embed)
             else:
                 await ctx.send("Seu report foi cancelado.")
-        except discord.Forbidden:
+        except disnake.Forbidden:
             await ctx.send("Não tenho permissão para enviar mensagens no canal de report.")
-        except discord.HTTPException:
+        except disnake.HTTPException:
             await ctx.send("Não foi possível enviar o report. Por favor, tente novamente mais tarde.")
         except asyncio.TimeoutError:
             await ctx.send("O tempo para confirmar o report acabou. Seu report foi cancelado.")
