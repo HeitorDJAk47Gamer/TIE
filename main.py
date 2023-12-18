@@ -1,4 +1,4 @@
-import os, json, random, datetime, asyncio, discord, requests
+import os, json, random, datetime, asyncio, disnake, requests
 from io import BytesIO
 from discord.ext import commands, tasks
 from decouple import config
@@ -42,17 +42,12 @@ async def load_cogs():
 			await tie.load_extension(f'cogs.{filename[:-3]}')
 			print(f'{filename[:-3]} carregado!')
 
-async def main():
-	async with tie:
-		await load_cogs()
-		await tie.start(token)
-
 @tie.event
 async def on_command_error(ctx, error):
 	print(f"Ocorreu um erro no comando {ctx.command}: {error}")
 
 
-@tie.hybrid_command()
+@tie.command()
 async def ping(ctx):
 	calc = tie.latency * 1000
 	pong = round(calc)
@@ -61,14 +56,14 @@ async def ping(ctx):
 	await ctx.send(embed=x)
 
 
-@tie.hybrid_command(description='links do servidor para votar ou entrar!')
+@tie.command(description='links do servidor para votar ou entrar!')
 async def links(ctx):
 	x = discord.Embed(title=f'links do servidor {tie.user.display_name}!', description=f'[Disforge](https://disforge.com/server/74106-the-immortal-eagles) \n[Top.gg](https://top.gg/servers/1044599844343382066) \n[DiscordList](https://discordbotlist.com/servers/theeagles)')
 	x.timestamp = datetime.datetime.utcnow()
 	await ctx.send(embed=x)
 
 
-@tie.hybrid_command()
+@tie.command()
 async def clear(ctx, quantidade=1000):
 	await ctx.channel.purge(limit=quantidade)
 	x = discord.Embed(title=f'Sistema de limpeza TIE', description=f'Foram limpadas as ultimás {quantidade} mensagens do canal!')
@@ -76,8 +71,17 @@ async def clear(ctx, quantidade=1000):
 	emoji = await ctx.send(embed=x)
 	await emoji.add_reaction('✅')
 
-@tie.hybrid_command()
-async def sv(ctx):
-	await ctx.send(f'Servidor Das Águis Imorríveis!')
+@tie.command()
+async def addrole(ctx, cargo: discord.Role):
+    for membro in ctx.guild.members:
+        await membro.add_roles(cargo)
+    await ctx.send(f'O cargo {cargo.name} foi adicionado a todos os membros.')
+
+@tie.command()
+async def rmvrole(ctx, cargo: discord.Role):
+    for membro in ctx.guild.members:
+        await membro.remove_roles(cargo)
+    await ctx.send(f'O cargo {cargo.name} foi removido a todos os membros.')
+
 
 asyncio.run(main())
