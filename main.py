@@ -1,10 +1,10 @@
-import os, json, random, datetime, asyncio, disnake, requests
-from io import BytesIO
+import os, json, random, datetime, asyncio, disnake
+from dotenv import load_dotenv
 from disnake.ext import commands, tasks
-from decouple import config
 
 karaoke_queue = []
-token = config('TOKEN')
+load_dotenv()
+TOKEN = os.getenv("TOKEN")
 
 tie = commands.tie(command_prefix=commands.when_mentioned_or('#'),case_insensitive=True, intents=disnake.Intents.all())
 
@@ -18,7 +18,7 @@ async def on_ready():
 	print(f'Membros Globais: {len(tie.users)}')
 	print(f'Servidores Globais: {len(tie.guilds)}')
 	print(f'Ping {pong} ms')
-	Print(f'As Águias Imorríveis!')
+	print(f'As Águias Imorríveis!')
 
 @tasks.loop(minutes=10)
 async def stats():
@@ -108,4 +108,4 @@ async def limpar(inter: disnake.ApplicationCommandInteraction):
     karaoke_queue.clear()
     await inter.response.send_message("🧹 A fila foi limpa com sucesso!")
 
-tie.run(token)
+tie.run(TOKEN)
